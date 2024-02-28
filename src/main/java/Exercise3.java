@@ -56,6 +56,21 @@ public class Exercise3 {
     }
 
     public static void main(String[] args) {
-        // test your code here!
+        String text = "Visit https://www.example.com for more information.";
+        String url = extractURL(text);
+        System.out.println("Extracted URL: " + url);
+    
+        String email = "test@example.com";
+        boolean isValidEmail = validateEmail(email);
+        System.out.println("Is the email valid? " + isValidEmail);
+    
+        String input = "Hello, I love programming. It's really cool!";
+        List<String> wordsWithRepeatLetters = findWordsWithRepeatLetters(input);
+        System.out.println("Words with repeated letters: " + wordsWithRepeatLetters);
+    
+        String repeatedWordsInput = "appleapple orange pearpear pineapple";
+        List<String> repeatedWords = findReapetdWords(repeatedWordsInput);
+        System.out.println("Repeated words: " + repeatedWords);
     }
+
 }
