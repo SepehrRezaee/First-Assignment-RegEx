@@ -9,7 +9,7 @@ public class Exercise3 {
         String regex = "(https?://[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!$&'()*+,;=]*)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
-
+    
         if (matcher.find()) {
             return matcher.group();
         }
@@ -18,6 +18,7 @@ public class Exercise3 {
         }
     }
 
+
     public static boolean validateEmail(String email) {
         String regex = "^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)*(\\.[a-zA-Z]{2,})$";
         Pattern pattern = Pattern.compile(regex);
@@ -25,12 +26,13 @@ public class Exercise3 {
         return matcher.matches();
     }
 
+
     public static List<String> findWordsWithRepeatLetters(String input) {
         List<String> wordsWithRepeatLetters = new ArrayList<>();
-        String regex = "\\b\\w*(\\w)\\1+\\w*\\b";
-        Pattern pattern = Pattern.compile(regex);
+        String regex = "\\b\\w*([\\w-])\\w*\\1+\\w*\\b";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
-
+    
         while (matcher.find()) {
             wordsWithRepeatLetters.add(matcher.group());
         }
@@ -39,12 +41,12 @@ public class Exercise3 {
 
     public static List<String> findReapetdWords(String input) {
         List<String> repeatedWords = new ArrayList<>();
-        String regex = "\\b(\\w+)\\1\\b";
+        String regex = "\\b(\\w+)(\\b.*\\b)\\1\\b";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-
+    
         while (matcher.find()) {
-            repeatedWords.add(matcher.group());
+            repeatedWords.add(matcher.group(1));
         }
         return repeatedWords;
     }
