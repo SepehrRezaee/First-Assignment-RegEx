@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 public class Exercise3 {
 
     public static String extractURL(String text) {
-        String regex = "(http|https)://[^\\s]*";  // URL pattern
-
+        String regex = "(https?://[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!$&'()*+,;=]*)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
@@ -21,42 +20,50 @@ public class Exercise3 {
 
     public static boolean validateEmail(String email) {
         String regex = "^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)*(\\.[a-zA-Z]{2,})$";
-        return email.matches(regex);
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     public static List<String> findWordsWithRepeatLetters(String input) {
         List<String> wordsWithRepeatLetters = new ArrayList<>();
-        String[] words = input.split("\\s+");
-        for (String word : words) {
-            if (word.matches(".*([a-zA-Z]).*\\1.*")) {
-                wordsWithRepeatLetters.add(word);
-            }
+        String regex = "\\b\\w*(\\w)\\1+\\w*\\b";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            wordsWithRepeatLetters.add(matcher.group());
         }
         return wordsWithRepeatLetters;
     }
 
     public static List<String> findReapetdWords(String input) {
         List<String> repeatedWords = new ArrayList<>();
-        String[] words = input.split("\\s+");
-        for (String word : words) {
-            if (word.matches("^(\\w+)\\1$")) {
-                repeatedWords.add(word);
-            }
+        String regex = "\\b(\\w+)\\1\\b";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            repeatedWords.add(matcher.group());
         }
         return repeatedWords;
     }
 
     public static void main(String[] args) {
-        String text = "Visit https://assistant.github.com for more information.";
-        System.out.println("Extracted URL: " + extractURL(text));
+        String text = "Visit https://www.example.com for more information.";
+        String url = extractURL(text);
+        System.out.println("Extracted URL: " + url);
 
         String email = "test@example.com";
-        System.out.println("Is valid email: " + validateEmail(email));
+        boolean isValidEmail = validateEmail(email);
+        System.out.println("Is the email valid? " + isValidEmail);
 
-        String input = "apple banana carrot doodle elephant";
-        System.out.println("Words with repeat letters: " + findWordsWithRepeatLetters(input));
+        String input = "Hello, I love programming. It's really cool!";
+        List<String> wordsWithRepeatLetters = findWordsWithRepeatLetters(input);
+        System.out.println("Words with repeated letters: " + wordsWithRepeatLetters);
 
         String repeatedWordsInput = "appleapple orange pearpear pineapple";
-        System.out.println("Repeated words: " + findReapetdWords(repeatedWordsInput));
+        List<String> repeatedWords = findReapetdWords(repeatedWordsInput);
+        System.out.println("Repeated words: " + repeatedWords);
     }
 }
