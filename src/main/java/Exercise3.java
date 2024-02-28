@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Exercise3 {
 
     public static String extractURL(String text) {
-        String regex = "(http|https)://[^\\s]*";  // URL pattern
+        String regex = "(http|https)://[^\\s]*";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
